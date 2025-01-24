@@ -58,7 +58,7 @@ Pobiera plik ZIP zawierający `index.html`, `styles.css` i `script.js` dla daneg
 - Zainstalowany Docker i Docker Compose.
 - Opcjonalnie: Composer (do lokalnego uruchamiania bez Dockera).
 
-### Instrukcja uruchomienia
+### Instrukcja uruchamiania
 
 1. Sklonuj repozytorium:
    ```bash
