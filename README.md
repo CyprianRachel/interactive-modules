@@ -2,6 +2,9 @@
 
 Interaktywne API oparte na Laravelu, zaprojektowane do definiowania i generowania wielokrotnego użytku komponentów HTML, CSS i JavaScript. Projekt wykorzystuje Dockera do konteneryzacji, co ułatwia jego uruchamianie i wdrażanie.
 
+| ![image](https://github.com/user-attachments/assets/5caf8c7b-ebdf-49d1-9d72-d5ebe6b4f834) | ![image](https://github.com/user-attachments/assets/ee2bd8d0-fabf-4991-9bb9-aa838b1e79ae) |
+|-------------------------|------------------------|
+
 ## Funkcjonalności
 
 - **Definiowanie interaktywnych modułów** z opcjami personalizacji: wymiary, kolory, odnośniki (linki).
