@@ -65,17 +65,37 @@ Pobiera plik ZIP zawierający `index.html`, `styles.css` i `script.js` dla daneg
    cd interactive-modules
    ```
 
-2. Uruchom kontenery Dockera:
+2. Utwórz plik `.env` z konfiguracją bazy danych:
+   ```bash
+   cp .env.example .env
+   ```
+
+   Upewnij się, że plik `.env` zawiera poprawne dane do logowania do bazy danych:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=laravel_db
+   DB_PORT=3306
+   DB_DATABASE=laravel
+   DB_USERNAME=laravel
+   DB_PASSWORD=secret
+   ```
+
+3. Uruchom kontenery Dockera:
    ```bash
    docker-compose up -d
    ```
 
-3. Zainstaluj Docker Composer:
+4. Zainstaluj zależności Composer:
    ```bash
    docker-compose exec app composer install
    ```
 
-4. Wykonaj migracje bazy danych:
+5. Wygeneruj klucz aplikacji:
+   ```bash
+   docker-compose exec app php artisan key:generate
+   ```
+
+6. Wykonaj migracje bazy danych:
    ```bash
    docker-compose exec app php artisan migrate
    ```
