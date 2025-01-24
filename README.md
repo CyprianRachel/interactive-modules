@@ -77,7 +77,7 @@ Pobiera plik ZIP zawierający `index.html`, `styles.css` i `script.js` dla daneg
    ```
 
 4. Uzyskaj dostęp do aplikacji:
-   - Pobieranie modułów: `http://localhost:8080/api/modules/{id}/download`
+   - Pobieranie modułów: `http://localhost:8080/modules/{id}/download`
 
 ---
 
@@ -156,67 +156,24 @@ Po wywołaniu endpointu `/modules/{id}/download`, wygenerowany ZIP zawiera:
 
 Do testowania API wykorzystano narzędzie **Thunder Client** wbudowane w VS Code. Poniżej znajdziesz przykładowy proces testowania:
 
-1. **Testowanie POST /api/modules**:
+1. **Testowanie POST /modules**:
    - W Thunder Client utwórz nowe zapytanie typu POST.
-   - Ustaw URL na: `http://localhost:8080/api/modules`.
+   - Ustaw URL na: `http://localhost:8080/modules`.
    - W sekcji Body ustaw format JSON i wprowadź przykładowe dane:
      ```json
      {
        "width": 300,
        "height": 200,
-       "color": "blue",
-       "link": "https://example.com"
+       "color": "yellow",
+       "link": "https://appverk.com/"
      }
      ```
    - Sprawdź odpowiedź JSON z ID nowo utworzonego modułu.
 
-2. **Testowanie GET /api/modules/{id}/download**:
+2. **Testowanie GET /modules/{id}/download**:
    - W Thunder Client utwórz nowe zapytanie typu GET.
-   - Ustaw URL na: `http://localhost:8080/api/modules/1/download` (gdzie `1` to ID modułu).
+   - Ustaw URL na: `http://localhost:8080/modules/1/download` (gdzie `1` to ID modułu).
    - Pobierz plik ZIP i sprawdź jego zawartość.
 
 ---
-
-## Propozycje ulepszeń
-
-1. **Autoryzacja użytkowników**:
-   Dodaj obsługę kont użytkowników i wymagaj autoryzacji do zarządzania modułami.
-
-2. **Podgląd modułów**:
-   Utwórz endpoint pozwalający na dynamiczny podgląd modułu w przeglądarce bez pobierania ZIP-a.
-
-3. **Frontendowy dashboard**:
-   Zbuduj prosty interfejs użytkownika (np. w Vue.js lub React) do zarządzania modułami.
-
-4. **Obsługa tematów**:
-   Dodaj wsparcie dla predefiniowanych tematów lub szablonów modułów.
-
-5. **Automatyczne testy**:
-   Napisz testy jednostkowe i funkcjonalne, aby zweryfikować poprawność działania endpointów i generowania ZIP.
-
----
-
-## Jak wyróżnić się na tle innych kandydatów?
-
-1. **Testy jednostkowe i funkcjonalne**:
-   Dodaj testy, które sprawdzają działanie endpointów i poprawność generowanych plików ZIP.
-
-2. **Czytelny kod**:
-   Używaj komentarzy, czytelnych nazw zmiennych i funkcji, oraz podziel logikę na mniejsze, łatwiejsze do zarządzania części.
-
-3. **Dokumentacja**:
-   Przejrzysta dokumentacja (README.md) z instrukcjami instalacji, przykładami i opisem funkcjonalności zrobi wrażenie na rekruterach.
-
-4. **Prezentacja wizualna**:
-   Dodaj zrzuty ekranu lub GIF-y pokazujące działanie aplikacji (np. pobieranie ZIP-a, podgląd modułu).
-
-5. **Dodatkowe funkcje**:
-   Wdroż takie rzeczy, jak podgląd modułów w czasie rzeczywistym lub dynamiczne generowanie przykładowych szablonów.
-
----
-
-Dzięki tym krokom Twój projekt będzie wyróżniał się profesjonalizmem i dopracowaniem! Powodzenia! 🚀
-
-
-
 
