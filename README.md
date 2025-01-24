@@ -56,7 +56,6 @@ Pobiera plik ZIP zawierający `index.html`, `styles.css` i `script.js` dla daneg
 
 ### Wymagania wstępne
 - Zainstalowany Docker i Docker Compose.
-- Opcjonalnie: Composer (do lokalnego uruchamiania bez Dockera).
 
 ### Instrukcja uruchamiania
 
@@ -71,7 +70,12 @@ Pobiera plik ZIP zawierający `index.html`, `styles.css` i `script.js` dla daneg
    docker-compose up -d
    ```
 
-3. Wykonaj migracje bazy danych:
+3. Zainstaluj Docker Composer:
+   ```bash
+   docker-compose exec app composer install
+   ```
+
+4. Wykonaj migracje bazy danych:
    ```bash
    docker-compose exec app php artisan migrate
    ```
