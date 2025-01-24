@@ -23,7 +23,7 @@ Tworzy nowy moduł i zapisuje jego definicję w bazie danych.
 {
   "width": 300,
   "height": 200,
-  "color": "yellow",
+  "color": "orange",
   "link": "https://appverk.com"
 }
 ```
@@ -152,7 +152,7 @@ Po wywołaniu endpointu `/modules/{id}/download`, wygenerowany ZIP zawiera:
    #my-module {
        width: 300px;
        height: 200px;
-       background-color: yellow;
+       background-color: orange;
        display: flex;
        align-items: center;
        justify-content: center;
@@ -185,7 +185,7 @@ Do testowania API wykorzystano narzędzie **Thunder Client** wbudowane w VS Code
      {
        "width": 300,
        "height": 200,
-       "color": "yellow",
+       "color": "orange",
        "link": "https://appverk.com/"
      }
      ```
