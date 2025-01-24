@@ -76,9 +76,6 @@ Pobiera plik ZIP zawierający `index.html`, `styles.css` i `script.js` dla daneg
    docker-compose exec app php artisan migrate
    ```
 
-4. Uzyskaj dostęp do aplikacji:
-   - Pobieranie modułów: `http://localhost:8080/modules/{id}/download`
-
 ---
 
 ## Stos technologiczny
