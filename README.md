@@ -1,66 +1,222 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Interactive Modules API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Interaktywne API oparte na Laravelu, zaprojektowane do definiowania i generowania wielokrotnego użytku komponentów HTML, CSS i JavaScript. Projekt wykorzystuje Dockera do konteneryzacji, co ułatwia jego uruchamianie i wdrażanie.
 
-## About Laravel
+## Funkcjonalności
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Definiowanie interaktywnych modułów** z opcjami personalizacji: wymiary, kolory, odnośniki (linki).
+- **Generowanie modułów** w formie pliku ZIP zawierającego:
+  - `index.html`: Struktura modułu.
+  - `styles.css`: Style dostosowane do danych wejściowych.
+  - `script.js`: JavaScript odpowiadający za interaktywne zachowanie.
+- **Środowisko Docker** zapewniające prostą konfigurację i uruchamianie projektu.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Endpointy
 
-## Learning Laravel
+### 1. **POST /modules**
+Tworzy nowy moduł i zapisuje jego definicję w bazie danych.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Przykładowe zapytanie:
+```json
+{
+  "width": 300,
+  "height": 200,
+  "color": "yellow",
+  "link": "https://appverk.com"
+}
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Przykładowa odpowiedź:
+```json
+{
+  "id": 1
+}
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+### 2. **GET /modules/{id}/download**
+Pobiera plik ZIP zawierający `index.html`, `styles.css` i `script.js` dla danego modułu.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### Przykład:
+- **URL**: `http://localhost:8080/modules/1/download`
+- Plik ZIP zawiera:
+  ```
+  module_1.zip
+  ├── index.html
+  ├── styles.css
+  └── script.js
+  ```
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Szybki start
 
-## Contributing
+### Wymagania wstępne
+- Zainstalowany Docker i Docker Compose.
+- Opcjonalnie: Composer (do lokalnego uruchamiania bez Dockera).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Instrukcja uruchomienia
 
-## Code of Conduct
+1. Sklonuj repozytorium:
+   ```bash
+   git clone https://github.com/CyprianRachel/interactive-modules.git
+   cd interactive-modules
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+2. Uruchom kontenery Dockera:
+   ```bash
+   docker-compose up -d
+   ```
 
-## Security Vulnerabilities
+3. Wykonaj migracje bazy danych:
+   ```bash
+   docker-compose exec app php artisan migrate
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Uzyskaj dostęp do aplikacji:
+   - Pobieranie modułów: `http://localhost:8080/api/modules/{id}/download`
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Stos technologiczny
+
+- **Backend**: Laravel 11 (PHP 8.2)
+- **Baza danych**: MySQL 8.0
+- **Konteneryzacja**: Docker i Docker Compose
+- **Frontend (pliki wygenerowane)**: HTML, CSS, JavaScript
+
+---
+
+## Struktura katalogów
+
+```plaintext
+interactive-modules/
+├── app/                 # Logika aplikacji (Modele, Kontrolery)
+├── database/            # Migracje i seedy
+├── docker/              # Pliki konfiguracji Dockera
+├── public/              # Pliki publiczne (index.php, assets)
+├── resources/views/     # Szablony Blade dla modułów
+├── routes/              # Definicje tras (web.php)
+├── storage/             # Logi, pliki tymczasowe, cache
+└── tests/               # Testy jednostkowe i funkcjonalne
+```
+
+---
+
+## Zawartość przykładowego pliku ZIP
+
+Po wywołaniu endpointu `/modules/{id}/download`, wygenerowany ZIP zawiera:
+
+1. **index.html**
+   ```html
+   <!DOCTYPE html>
+   <html>
+   <head>
+       <meta charset="utf-8">
+       <title>Module 1</title>
+       <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+       <div id="my-module">Kliknij mnie, aby przejść do: https://appverk.com/</div>
+       <script src="script.js"></script>
+   </body>
+   </html>
+   ```
+
+2. **styles.css**
+   ```css
+   #my-module {
+       width: 300px;
+       height: 200px;
+       background-color: yellow;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       cursor: pointer;
+       color: #fff;
+   }
+   ```
+
+3. **script.js**
+   ```javascript
+   document.addEventListener('DOMContentLoaded', function() {
+       var moduleDiv = document.getElementById('my-module');
+       moduleDiv.addEventListener('click', function() {
+           window.open('https://appverk.com/', '_blank');
+       });
+   });
+   ```
+
+---
+
+## Testowanie aplikacji
+
+Do testowania API wykorzystano narzędzie **Thunder Client** wbudowane w VS Code. Poniżej znajdziesz przykładowy proces testowania:
+
+1. **Testowanie POST /api/modules**:
+   - W Thunder Client utwórz nowe zapytanie typu POST.
+   - Ustaw URL na: `http://localhost:8080/api/modules`.
+   - W sekcji Body ustaw format JSON i wprowadź przykładowe dane:
+     ```json
+     {
+       "width": 300,
+       "height": 200,
+       "color": "blue",
+       "link": "https://example.com"
+     }
+     ```
+   - Sprawdź odpowiedź JSON z ID nowo utworzonego modułu.
+
+2. **Testowanie GET /api/modules/{id}/download**:
+   - W Thunder Client utwórz nowe zapytanie typu GET.
+   - Ustaw URL na: `http://localhost:8080/api/modules/1/download` (gdzie `1` to ID modułu).
+   - Pobierz plik ZIP i sprawdź jego zawartość.
+
+---
+
+## Propozycje ulepszeń
+
+1. **Autoryzacja użytkowników**:
+   Dodaj obsługę kont użytkowników i wymagaj autoryzacji do zarządzania modułami.
+
+2. **Podgląd modułów**:
+   Utwórz endpoint pozwalający na dynamiczny podgląd modułu w przeglądarce bez pobierania ZIP-a.
+
+3. **Frontendowy dashboard**:
+   Zbuduj prosty interfejs użytkownika (np. w Vue.js lub React) do zarządzania modułami.
+
+4. **Obsługa tematów**:
+   Dodaj wsparcie dla predefiniowanych tematów lub szablonów modułów.
+
+5. **Automatyczne testy**:
+   Napisz testy jednostkowe i funkcjonalne, aby zweryfikować poprawność działania endpointów i generowania ZIP.
+
+---
+
+## Jak wyróżnić się na tle innych kandydatów?
+
+1. **Testy jednostkowe i funkcjonalne**:
+   Dodaj testy, które sprawdzają działanie endpointów i poprawność generowanych plików ZIP.
+
+2. **Czytelny kod**:
+   Używaj komentarzy, czytelnych nazw zmiennych i funkcji, oraz podziel logikę na mniejsze, łatwiejsze do zarządzania części.
+
+3. **Dokumentacja**:
+   Przejrzysta dokumentacja (README.md) z instrukcjami instalacji, przykładami i opisem funkcjonalności zrobi wrażenie na rekruterach.
+
+4. **Prezentacja wizualna**:
+   Dodaj zrzuty ekranu lub GIF-y pokazujące działanie aplikacji (np. pobieranie ZIP-a, podgląd modułu).
+
+5. **Dodatkowe funkcje**:
+   Wdroż takie rzeczy, jak podgląd modułów w czasie rzeczywistym lub dynamiczne generowanie przykładowych szablonów.
+
+---
+
+Dzięki tym krokom Twój projekt będzie wyróżniał się profesjonalizmem i dopracowaniem! Powodzenia! 🚀
+
+
+
+
