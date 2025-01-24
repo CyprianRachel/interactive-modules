@@ -30,12 +30,12 @@ class ModuleController extends Controller
     {
         $module = Module::findOrFail($id);
 
-        // Generujemy zawartość poszczególnych plików
+        // Generowanie zawartości poszczególnych plików
         $htmlContent = $this->generateHtml($module);
         $cssContent  = $this->generateCss($module);
         $jsContent   = $this->generateJs($module);
 
-        // Tworzymy ZIP
+        // Tworzenie ZIP
         $zipFileName = 'module_' . $module->id . '.zip';
         $zip = new ZipArchive();
         $zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE);
@@ -44,13 +44,12 @@ class ModuleController extends Controller
         $zip->addFromString('script.js', $jsContent);
         $zip->close();
 
-        // Zwracamy ZIP do pobrania i usuwamy po wysłaniu
+        // ZIP do pobrania usuwany po wysłaniu
         return response()->download($zipFileName)->deleteFileAfterSend(true);
     }
 
     private function generateHtml(Module $module)
     {
-        // Minimalny kod HTML (tylko tyle, by wczytać CSS i JS i mieć 1 element)
         return <<<HTML
         <!DOCTYPE html>
         <html>
@@ -71,7 +70,7 @@ class ModuleController extends Controller
 
     private function generateCss(Module $module)
     {
-        // Minimalne style: ustawienie szerokości, wysokości, koloru tła
+        // Ustawienie szerokości, wysokości, koloru tła
         return <<<CSS
         #my-module {
             width: {$module->width}px;
@@ -88,7 +87,7 @@ class ModuleController extends Controller
 
     private function generateJs(Module $module)
     {
-        /* Najprostszy listener kliknięcia: otwiera link w nowej karcie */
+        /* Otwiera link w nowej karcie */
         return <<<JS
         document.addEventListener('DOMContentLoaded', function() {
             var moduleDiv = document.getElementById('my-module');
